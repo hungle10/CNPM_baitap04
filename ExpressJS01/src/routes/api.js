@@ -56,6 +56,11 @@ const delay = require("../middleware/delay");
 
 const routerAPI = express.Router();
 
+// Apply auth to all /v1/api routes by default. The `auth` middleware
+// itself contains a whitelist (register/login/forgot/check-otp/reset-password)
+// so these endpoints remain public while everything else requires a token.
+routerAPI.use(auth);
+
 routerAPI.get("/", (req, res) => {
   return res.status(200).json("Hello world api");
 });
